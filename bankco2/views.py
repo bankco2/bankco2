@@ -21,14 +21,19 @@ class StepViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
 
         device_id = request.data.get('device_id')
+        step_date = request.data.get('step_date')
+
+        if step_date == "1970-01-01":
+            time = localtime()
+            step_date = time.strftime("%Y-%m-%d")
 
         (device, is_created) = Device.objects.get_or_create(device_id=device_id)
 
         Step.objects.update_or_create(
             device=device,
-            step_date=serializer.data.get('step_date'),
+            step_date=step_date,
             defaults={
-                'count': serializer.data.get('count'),
+                'count': request.data.get('count'),
             }
         )
 
