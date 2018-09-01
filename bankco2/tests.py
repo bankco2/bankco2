@@ -3,7 +3,7 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 
 # Using the standard RequestFactory API to create a form POST request
-from bankco2.models import Step, Device
+from bankco2.models import Step, Device, Animal
 
 
 class StepAPITestCase(TestCase):
@@ -64,3 +64,23 @@ class StepAPITestCase(TestCase):
         data3_id = Step.objects.get(device_id=4).pk
 
         self.assertNotEqual(data2_id, data3_id)
+
+
+class DrawTestCase(TestCase):
+    client = APIClient()
+
+    def setUp(self):
+        for device_id in range(5):
+            Device.objects.create(device_id=device_id)
+
+        names = ['호랑이', '사자', '펭귄', '고래', '물고기']
+
+        for idx, name in enumerate(names):
+            Animal.objects.create(image=str(idx), name=name)
+
+    def test_draw_animal_image(self):
+        resp = self.client.get('/drawing/1/')
+
+        print(resp)
+
+        self.assertIsNotNone(resp.data.get('name'))
