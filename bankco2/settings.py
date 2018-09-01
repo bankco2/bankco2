@@ -59,18 +59,29 @@ ROOT_URLCONF = 'bankco2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.tz',
+
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
+
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'bankco2.wsgi.application'
 
@@ -79,8 +90,12 @@ WSGI_APPLICATION = 'bankco2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '../../9xd-hack/db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bankco2',
+        'USER': 'postgres',
+        'PASSWORD': 'bankco2',
+        'HOST': '13.125.111.46',
+        'PORT': '5432',
     }
 }
 
@@ -124,7 +139,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-SITE_ID = 1
+SITE_ID = 2
 
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 LOGIN_REDIRECT_URL = "/api"

@@ -1,3 +1,4 @@
+from django.utils.timezone import localtime
 from django.views.generic import TemplateView
 from rest_framework import viewsets, status
 from rest_framework.response import Response
@@ -30,5 +31,24 @@ class StepViewSet(viewsets.ModelViewSet):
                         headers=headers)
 
 
+class MobileMainView(TemplateView):
+    template_name = 'main.html'
+
+    def get_context_data(self, **kwargs):
+        device_id = self.request.GET.get("device_id")
+
+        time = localtime()
+
+        step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("Y-m-d"))
+
+        return {
+            "step": step
+        }
+
+
+class AnimalView(TemplateView):
+    template_name = 'animal.html'
+
+
 class IndexView(TemplateView):
-    template_name = 'login.html'
+    template_name = 'index.html'
