@@ -28,8 +28,7 @@ class StepViewSet(viewsets.ModelViewSet):
             time = localtime()
             step_date = time.strftime("%Y-%m-%d")
 
-        (device, is_created) = Device.objects.get_or_create(
-            device_id=device_id)
+        (device, is_created) = Device.objects.get_or_create(device_id=device_id)
 
         Step.objects.update_or_create(
             device=device,
@@ -46,8 +45,7 @@ class StepViewSet(viewsets.ModelViewSet):
         else:
             response_status = status.HTTP_200_OK
 
-        return Response(serializer.data, status=response_status,
-                        headers=headers)
+        return Response(serializer.data, status=response_status, headers=headers)
 
 
 class MobileMainView(TemplateView):
@@ -60,9 +58,7 @@ class MobileMainView(TemplateView):
         time = localtime()
 
         if device_id:
-            step = Step.objects.filter(device__device_id=device_id,
-                                       step_date=time.strftime(
-                                           "%Y-%m-%d")).first()
+            step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("%Y-%m-%d")).first()
         else:
             step = None
 
@@ -83,8 +79,7 @@ class RankView(TemplateView):
 
         time = localtime()
 
-        steps = Step.objects.filter(
-            step_date=time.strftime("%Y-%m-%d")).order_by('-count')[:10]
+        steps = Step.objects.filter(step_date=time.strftime("%Y-%m-%d")).order_by('-count')[:10]
 
         ranking = []
         rank = 1
@@ -103,15 +98,14 @@ class RankView(TemplateView):
             rank = rank + 1
 
         if device_id and not in_rank_flag:
-            step = Step.objects.filter(device__device_id=device_id,
-                                       step_date=time.strftime(
-                                           "%Y-%m-%d")).first()
+            step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("%Y-%m-%d")).first()
 
             ranking.append({
                 "rank": "-",
                 "device_id": step.device.device_id,
                 "count": step.count,
             })
+
 
         context.update({
             "device_id": device_id,
@@ -128,10 +122,21 @@ class HistoryView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         device_id = self.request.GET.get("device_id")
-        now = localtime()
 
-        steps = Step.objects.filter(
-            step_date__gte=now - timedelta(days=7)).all()
+        steps = []
+
+        for i in range(-6, 1):
+            time = localtime() + timedelta(days=i)
+
+            step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("%Y-%m-%d")).first()
+
+            if step:
+                steps.append(step)
+            else:
+                steps.append({
+                    "step_date": time,
+                    "count": 0
+                })
 
         context.update({
             "device_id": device_id,
@@ -165,8 +170,7 @@ class IndexView(TemplateView):
 
         time = localtime()
 
-        step = Step.objects.filter(device__device_id=device_id,
-                                   step_date=time.strftime("%Y-%m-%d"))
+        step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("%Y-%m-%d"))
         context.update({
             'step': step
         })
@@ -180,9 +184,7 @@ def draw(request, device_id):
     animals = Animal.objects.all()
     choiced_animal = random.choice(animals)
 
-    step = Step.objects.filter(device__device_id=device_id,
-                               step_date=time.strftime("%Y-%m-%d"),
-                               draw_flag=False).first()
+    step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("%Y-%m-%d"), draw_flag=False).first()
     if step and step.count >= 10000:
         step.device.animal.add(choiced_animal)
 
@@ -196,7 +198,7 @@ def draw(request, device_id):
 
         if choiced_animal.image:
             ret.update({
-                "image_url": choiced_animal.image.url
+               "image_url": choiced_animal.image.url
             })
     else:
         ret = {
