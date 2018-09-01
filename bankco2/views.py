@@ -37,15 +37,14 @@ class MobileMainView(TemplateView):
     template_name = 'main.html'
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data()
         device_id = self.request.GET.get("device_id")
 
         time = localtime()
 
         step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("Y-m-d"))
-
-        return {
-            "step": step
-        }
+        context['step'] = step
+        return context
 
 
 class AnimalView(TemplateView):
@@ -54,3 +53,14 @@ class AnimalView(TemplateView):
 
 class IndexView(TemplateView):
     template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        device_id = self.request.GET.get("device_id")
+
+        time = localtime()
+
+        step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("Y-m-d"))
+        context['step'] = step
+
+        return context

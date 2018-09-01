@@ -24,7 +24,7 @@
     </div>
     <div class="app__content">
       <div class="step__count__cover">
-        <span id="step__count">9647</span>걸음
+        <span id="step__count">{{ step.count }}</span>걸음
       </div>
       <div class="step__img__cover" id="knob">
       </div>
@@ -39,12 +39,13 @@
     </div>
   </div>
   <script>
+    var step = {{ step.count }};
     $(document).ready(function () {
       $('#knob').jqxKnob({
         width: 270,
         height: 270,
-        //disabled: true,
-        value: 7500,
+        disabled: true,
+        value: step,
         min: 0,
         max: 10000,
         startAngle: 270,
@@ -70,6 +71,8 @@
         }
       });
     });
+
+    
   </script>
 </body>
 
