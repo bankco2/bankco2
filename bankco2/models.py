@@ -11,4 +11,4 @@ class Step(models.Model):
 
 class Animal(models.Model):
     animal_code = models.CharField(max_length=16)
-    user = models.ManyToManyField(BankCo2User)
+    user = models.ManyToManyField(User)

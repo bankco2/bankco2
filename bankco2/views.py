@@ -13,10 +13,4 @@ class StepViewSet(viewsets.ModelViewSet):
 
 
 class IndexView(TemplateView):
-    template_name = 'index.html'
-
-def login(request):
-    return render(request, '/login.html', {})
-
-def index(request):
-    return render(request, '/index.html', {})
+    template_name = 'login.html'

@@ -27,7 +27,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('accounts/', include('allauth.urls')),
-    path('index/', views.index, name='main')
-    path('index/dic', views.dic, name='dictionary')
-    path('login/', views.login, name='login')
+    path('', views.IndexView.as_view(), name='main')
 ]
