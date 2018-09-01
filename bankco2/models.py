@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Step(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    device_id = models.CharField(max_length=255, default='default-id')
     count = models.IntegerField()
     step_date = models.DateField()
 
