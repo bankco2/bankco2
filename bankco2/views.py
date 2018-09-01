@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
-from bankco2.models import Step
+from bankco2.models import Step, Device
 from bankco2.serializers import StepSerializer
 
 
@@ -15,11 +15,15 @@ class StepViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
+        device_id = serializer.data.get('device_id')
+
+        device = Device.objects.get_or_create(device_id=device_id)
+
         Step.objects.update_or_create(
-            device_id=serializer.data.get('device'),
+            device=device,
+            step_date=serializer.data.get('step_date'),
             defaults={
                 'count': serializer.data.get('count'),
-                'step_date': serializer.data.get('step_date')
             }
         )
 
