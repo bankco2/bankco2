@@ -1,0 +1,70 @@
+.main__wrapper {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #1089F1, #165ACC);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.app__header {
+  padding: 0px 20px;
+}
+
+#animal__logo {
+  width: 60px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+#animal__logo img {
+  width: 35px;
+  height: auto;
+}
+
+#animal__description {
+  font-size: 12px;
+  font-weight: 100;
+  color: #fff;
+}
+
+#step__count {
+  font-size: 4rem;
+}
+
+.step__count__cover {
+  color: #fff;
+  font-weight: 100;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.step__img__cover {
+  margin: 0 auto;
+  width: 270px;
+  height: 270px;
+  border-radius: 100%;
+  background: linear-gradient(45deg, #0D56E6, #136AE6);
+}
+
+.quest__cover{
+  box-sizing: border-box;
+  width: 90%;
+  margin: 0 auto;
+  background-color: #4585E9;
+  border-radius: 15px;
+  padding: 13px 20px;
+  color: #fff;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.quest__title{
+  font-size: 15px;
+}
+
+.quest__description{
+  font-size: 15px;
+  font-weight: 100;
+}

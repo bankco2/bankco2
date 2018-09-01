@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
+  <link rel="stylesheet" href="{% static 'css/style.css'%}">
+  <link rel="stylesheet" href="{% static 'css/all.css'%}">
+  <link rel="stylesheet" href="{% static 'css/index.css'%}">
+  <script src="{% static 'js/jqx-all.js'%}"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="main__wrapper">
+    <div class="app__header">
+      <div id="animal__logo">
+        <img src="{% static 'img/animal_logo.png'%}" alt="">
+        <div id="animal__description">동물도감</div>
+      </div>
+    </div>
+    <div class="app__content">
+      <div class="step__count__cover">
+        <span id="step__count">9647</span>걸음
+      </div>
+      <div class="step__img__cover" id="knob">
+      </div>
+    </div>
+    <div class="app__bottom">
+      <div class="quest__cover">
+        <div class="quest__title">DAILY MISSION</div>
+        <div class="quest__description">
+          오늘 하루는 핸드타올 대신 손수건을 사용해 볼까요?
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function () {
+      $('#knob').jqxKnob({
+        width: 270,
+        height: 270,
+        disabled: true,
+        value: 5000,
+        min: 0,
+        max: 10000,
+        startAngle: 270,
+        endAngle: 630,
+        rotation: 'clockwise',
+        style: {
+          fill: "none"
+        },
+        dial: {
+          style: {
+            fill: "none"
+          },
+          startAngle: 0,
+          endAngle: 360
+        },
+        progressBar: {
+          style: { fill: { color: '#F54228', gradientType: 'linear', gradientStops: [[0, 0.5], [50, 1]] } },
+          background: {
+            fill: '#89BAF4'
+          },
+          size: '8%',
+          offset: '92%'
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
