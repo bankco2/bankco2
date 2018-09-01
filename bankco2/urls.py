@@ -18,6 +18,7 @@ from rest_framework import routers
 from django.urls import path, include
 
 from bankco2.views import StepViewSet
+from . import views
 
 router = routers.DefaultRouter()
 router.register(r'steps', StepViewSet)
@@ -26,4 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('accounts/', include('allauth.urls')),
+    path('index/', views.index, name='main')
+    path('index/dic', views.dic, name='dictionary')
+    path('login/', views.login, name='login')
 ]
