@@ -15,5 +15,4 @@ class DeviceAdmin(admin.ModelAdmin):
 
 @admin.register(Animal)
 class AnimalAdmin(admin.ModelAdmin):
-    pass
-
+    list_display = ('code', 'name', 'score')
