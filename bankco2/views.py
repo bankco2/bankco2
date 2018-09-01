@@ -88,13 +88,24 @@ class IndexView(TemplateView):
 
 
 def draw(request, device_id):
+    time = localtime()
+
     animals = Animal.objects.all()
     choiced_animal = random.choice(animals)
 
-    device = Device.objects.get(device_id=device_id)
-    device.animal.add(choiced_animal)
+    step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("Y-m-d")).first()
+    if step and step.count >= 10000:
+        step.device.animal.add(choiced_animal)
+        step.device.save()
 
-    return {
-        "name": choiced_animal.name,
-        "image_url": choiced_animal.image
-    }
+        ret = {
+            "status": 200,
+            "name": choiced_animal.name,
+            "image_url": choiced_animal.image
+        }
+    else:
+        ret = {
+            "status": 400,
+        }
+
+    return ret
