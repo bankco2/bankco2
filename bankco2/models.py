@@ -17,11 +17,6 @@ class Device(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=False,
                                       blank=False)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
-
-
-class CustomUser(User):
-    device = models.ForeignKey(Device, null=True, blank=True,
-                               on_delete=models.SET_NULL)
     animal = models.ManyToManyField(Animal)
 
 
