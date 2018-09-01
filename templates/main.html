@@ -20,7 +20,7 @@
         <a href="/animal/?device_id={{ device_id }}">
             <div id="animal__logo">
                 <img src="{% static 'img/animal_logo.png' %}" alt="">
-                <div id="animal__description">동물도감</div>
+	            <div id="animal__description" onclick="location.href='{% url "animal" %}'">동물도감</div>
             </div>
         </a>
     </div>

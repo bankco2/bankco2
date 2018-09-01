@@ -2,7 +2,7 @@ import json
 
 from django.http import HttpResponse
 from django.utils.timezone import localtime
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
@@ -67,17 +67,9 @@ class MobileMainView(TemplateView):
         }
 
 
-class AnimalView(TemplateView):
+class AnimalView(ListView):
     template_name = 'animal.html'
-
-    def get_context_data(self, **kwargs):
-        device_id = self.request.GET.get("device_id")
-
-        animals = Device.objects.filter(device=device_id)
-
-        return {
-            "animals": animals
-        }
+    queryset = Animal.objects.all()
 
 
 class IndexView(TemplateView):

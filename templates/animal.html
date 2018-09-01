@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
 
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="{% static '/js/jquery-3.3.1.min.js' %}"></script>
+	<link rel="stylesheet" href="{% static '/css/style.css' %}">
+	<link rel="stylesheet" href="{% static '/css/animal.css' %}">
+	<title>Document</title>
+</head>
+
+<body>
+<div class="animal__wrapper">
+
+</div>
+<div class="animal__top">
+	동물도감
+</div>
+<div class="animal__list">
+	{% for animal in object_list %}
+		<div class="animal__el">
+			<div class="animal__photo">
+				<img src="/media/{{ animal.image }}">
+			</div>
+			<div class="animal__name">{{ animal.name }}</div>
+			<p style="display: none;">{{ animal.description }}</p>
+		</div>
+	{% endfor %}
+</div>
+
+
+<div id="modal">
+	<div class="modal__img">
+		<img src="#" alt="" id="modal-img">
+	</div>
+	<div class="modal__title"></div>
+	<div class="modal__content"></div>
+</div>
+<div id="modal__back"></div>
+<script>
+
+    $(".animal__el,#modal").click(function (e) {
+        e.preventDefault();
+        var img_src = e.target.src;
+        $('#modal-img').attr('src', img_src);
+        var name = $(e.target).parent().next().text();
+        $('div.modal__title').text(name);
+        var desc = $(e.target).parent().next().next().text();
+        $('div.modal__content').text(desc);
+        $("#modal__back, #modal").toggle();
+    });
+</script>
+</body>
+
+</html>
