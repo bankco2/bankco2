@@ -3,8 +3,10 @@ from django.views.generic import TemplateView
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
-from bankco2.models import Step, Device
+from bankco2.models import Step, Device, Animal
 from bankco2.serializers import StepSerializer
+
+import random
 
 
 class StepViewSet(viewsets.ModelViewSet):
@@ -64,3 +66,16 @@ class AnimalView(TemplateView):
 
 class IndexView(TemplateView):
     template_name = 'index.html'
+
+
+def draw(request, device_id):
+    animals = Animal.objects.all()
+    choiced_animal = random.choice(animals)
+
+    device = Device.objects.get(device_id=device_id)
+    device.animal.add(choiced_animal)
+
+    return {
+        "name": choiced_animal.name,
+        "image_url": choiced_animal.image
+    }
