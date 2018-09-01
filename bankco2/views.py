@@ -44,6 +44,7 @@ class MobileMainView(TemplateView):
         step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("Y-m-d"))
 
         return {
+            "device_id": device_id,
             "step": step
         }
 
