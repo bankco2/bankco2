@@ -1,3 +1,6 @@
+import json
+
+from django.http import HttpResponse
 from django.utils.timezone import localtime
 from django.views.generic import TemplateView
 from rest_framework import viewsets, status
@@ -81,7 +84,7 @@ class IndexView(TemplateView):
 
         time = localtime()
 
-        step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("Y-m-d"))
+        step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("%Y-%m-%d"))
         context['step'] = step
 
         return context
@@ -93,19 +96,25 @@ def draw(request, device_id):
     animals = Animal.objects.all()
     choiced_animal = random.choice(animals)
 
-    step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("Y-m-d")).first()
+    step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("%Y-%m-%d"), draw_flag=False).first()
     if step and step.count >= 10000:
         step.device.animal.add(choiced_animal)
-        step.device.save()
+
+        step.draw_flag = True
+        step.save()
 
         ret = {
             "status": 200,
             "name": choiced_animal.name,
-            "image_url": choiced_animal.image
         }
+
+        if choiced_animal.image:
+            ret.update({
+               "image_url": choiced_animal.image.url
+            })
     else:
         ret = {
             "status": 400,
         }
 
-    return ret
+    return HttpResponse(json.dumps(ret))
