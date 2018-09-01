@@ -168,4 +168,5 @@ typings/
 .next
 
 .idea/
+.bashrc
 

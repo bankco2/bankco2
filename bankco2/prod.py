@@ -2,8 +2,11 @@ from .settings import *
 
 DEBUG = False
 DATABASES = {
-    'NAME': 'bankco2',
-    'HOST': 'localhost',
-    'USER': 'bankco2',
-    'PASSWORD': 'bankco2'
+	'default': {
+    		'NAME': 'bankco2',
+    		'ENGINE': 'django.db.backends.postgresql',
+    		'HOST': 'localhost',
+    		'USER': 'postgres',
+    		'PASSWORD': 'bankco2'
+	}
 }
