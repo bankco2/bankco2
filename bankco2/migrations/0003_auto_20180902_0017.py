@@ -57,10 +57,4 @@ class Migration(migrations.Migration):
             name='device',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='bankco2.Device'),
         ),
-        migrations.AddField(
-            model_name='step',
-            name='device',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='bankco2.Device'),
-            preserve_default=False,
-        ),
     ]
