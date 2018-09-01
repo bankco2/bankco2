@@ -97,7 +97,7 @@ class RankView(TemplateView):
 
             rank = rank + 1
 
-        if not in_rank_flag:
+        if device_id and not in_rank_flag:
             step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("%Y-%m-%d")).first()
 
             ranking.append({
@@ -109,6 +109,7 @@ class RankView(TemplateView):
 
         context.update({
             "device_id": device_id,
+            "today": time,
             "ranking": ranking
         })
 

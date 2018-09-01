@@ -28,30 +28,62 @@
             width: 80px;
             text-align: center;
         }
-        .table td.step {
-            width: 80px;
+        .table td.steps {
+            width: 180px;
             text-align: right;
         }
     </style>
 </head>
 
 <body>
-<div class="main__wrapper">
-    <div>
-        순위
-    </div>
-    <table class="table">
-        {% for rank in ranking %}
-            <tr>
-            <td class="rank">{{ rank.rank }}</td>
-            <td class="steps">{{ rank.count|intcomma }}</td>
-            <td class="memo">{% if device_id == rank.device_id %}
-                접니다
-            {% endif %}</td>
-            </tr>
-        {% endfor %}
-    </table>
 
+<div class="main__wrapper">
 </div>
+
+<div class="app__header">
+    <a href="/main/?device_id={{ device_id }}">
+        <div id="animal__logo">
+            <img src="{% static 'img/ic_home.png' %}" alt="">
+            <div id="animal__description">처음</div>
+        </div>
+    </a>
+    <a href="/animal/?device_id={{ device_id }}">
+        <div id="animal__logo">
+            <img src="{% static 'img/animal_logo.png' %}" alt="">
+            <div id="animal__description" onclick="location.href='{% url "animal" %}'">동물도감</div>
+        </div>
+    </a>
+    <a href="/history/?device_id={{ device_id }}">
+        <div id="animal__logo">
+            <img src="{% static 'img/ic_history.png' %}" alt="">
+            <div id="animal__description">7 DAYS</div>
+        </div>
+    </a>
+    <a href="/rank/?device_id={{ device_id }}">
+        <div id="animal__logo">
+            <img src="{% static 'img/ic_rank.png' %}" alt="">
+            <div id="animal__description">랭킹</div>
+        </div>
+    </a>
+</div>
+
+<div style="padding: 20px;font-size: 30px;text-align: center">
+    순위
+</div>
+<div style="padding: 20px;font-size: 20px;text-align: center">
+    {{ today|date:"Y년 m월 d일" }}
+</div>
+<table class="table">
+    {% for rank in ranking %}
+        <tr>
+        <td class="rank">{{ rank.rank }} 등</td>
+        <td class="steps">{{ rank.count|intcomma }} 걸음</td>
+        <td class="memo">{% if device_id == rank.device_id %}
+            접니다
+        {% endif %}</td>
+        </tr>
+    {% endfor %}
+</table>
+
 </body>
 </html>

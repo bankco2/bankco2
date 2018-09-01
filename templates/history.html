@@ -34,6 +34,7 @@
             width: 160px;
             border-bottom: #fff 1px solid;
         }
+
         #history li .img {
             margin: 10px;
             width: 140px;
@@ -41,10 +42,12 @@
             background: #fff;
             border-radius: 50%;
         }
+
         #history li img {
             margin: 5px;
             height: 130px;
         }
+
         #history li span {
             padding: 10px 0;
             display: block;
@@ -56,35 +59,61 @@
 
 <body>
 <div class="main__wrapper">
-    <div style="width: 100%; text-align: center">
-        <img src="{% static "img/7days_title.png" %}" align="center"/>
-    </div>
-    <ul id="history">
-        {% for step in steps %}
-            <li>
-                <span class="rank">{{ step.step_date|date:"m/d" }}</span>
+</div>
 
-                <div class="img">
+<div class="app__header">
+    <a href="/main/?device_id={{ device_id }}">
+        <div id="animal__logo">
+            <img src="{% static 'img/ic_home.png' %}" alt="">
+            <div id="animal__description">처음</div>
+        </div>
+    </a>
+    <a href="/animal/?device_id={{ device_id }}">
+        <div id="animal__logo">
+            <img src="{% static 'img/animal_logo.png' %}" alt="">
+            <div id="animal__description" onclick="location.href='{% url "animal" %}'">동물도감</div>
+        </div>
+    </a>
+    <a href="/history/?device_id={{ device_id }}">
+        <div id="animal__logo">
+            <img src="{% static 'img/ic_history.png' %}" alt="">
+            <div id="animal__description">7 DAYS</div>
+        </div>
+    </a>
+    <a href="/rank/?device_id={{ device_id }}">
+        <div id="animal__logo">
+            <img src="{% static 'img/ic_rank.png' %}" alt="">
+            <div id="animal__description">랭킹</div>
+        </div>
+    </a>
+</div>
+<div style="width: 100%; text-align: center;padding: 20px;">
+    <img src="{% static "img/7days_title.png" %}" style="height:60px;" align="center"/>
+</div>
+<ul id="history">
+    {% for step in steps %}
+        <li>
+            <span class="rank">{{ step.step_date|date:"m/d" }}</span>
+
+            <div class="img">
 
                 {% if step.count >= 10000 %}
-                <img src="{% static "img/7days_title.png" %}">
+                    <img src="{% static "img/7days_title.png" %}">
                 {% elif step.count > 7500 %}
-                <img src="{% static "img/trash_4.png" %}">
+                    <img src="{% static "img/trash_4.png" %}">
                 {% elif step.count > 5000 %}
-                <img src="{% static "img/trash_3.png" %}">
+                    <img src="{% static "img/trash_3.png" %}">
                 {% elif step.count > 2500 %}
-                <img src="{% static "img/trash_2.png" %}">
+                    <img src="{% static "img/trash_2.png" %}">
                 {% else %}
-                <img src="{% static "img/trash_1.png" %}">
+                    <img src="{% static "img/trash_1.png" %}">
                 {% endif %}
-                </div>
+            </div>
 
-                <span class="steps">{{ step.count|intcomma }}</span>
-            </li>
-        {% endfor %}
-    </ul>
-
-<div></div>
+            <span class="steps">{{ step.count|intcomma }}</span>
+        </li>
+    {% endfor %}
+</ul>
 
 </div>
 </body>

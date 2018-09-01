@@ -1,32 +1,10 @@
 .main__wrapper {
+    position: fixed;
+    z-index: -99;
   width: 100%;
   height: 100%;
   background: linear-gradient(to bottom, #1089F1, #165ACC);
-  display: flex;
   flex-direction: column;
-  justify-content: space-around;
-}
-
-.app__header {
-  padding: 0px 20px;
-}
-
-#animal__logo {
-  width: 60px;
-  text-align: center;
-  margin-top: 30px;
-  display: inline-block;
-}
-
-#animal__logo img {
-  width: 35px;
-  height: auto;
-}
-
-#animal__description {
-  font-size: 12px;
-  font-weight: 100;
-  color: #fff;
 }
 
 #step__count {
