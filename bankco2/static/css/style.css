@@ -13,6 +13,10 @@ ul, ol {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 #sub {
   font-size: 1rem;
 }

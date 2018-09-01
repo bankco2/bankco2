@@ -15,6 +15,7 @@
   width: 60px;
   text-align: center;
   margin-top: 30px;
+  display: inline-block;
 }
 
 #animal__logo img {
