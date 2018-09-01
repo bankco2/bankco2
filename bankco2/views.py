@@ -17,9 +17,9 @@ class StepViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        device_id = serializer.data.get('device_id')
+        device_id = request.data.get('device_id')
 
-        device = Device.objects.get_or_create(device_id=device_id)
+        (device, is_created) = Device.objects.get_or_create(device_id=device_id)
 
         Step.objects.update_or_create(
             device=device,
@@ -31,19 +31,27 @@ class StepViewSet(viewsets.ModelViewSet):
 
         headers = self.get_success_headers(serializer.data)
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED,
-                        headers=headers)
+        if is_created:
+            response_status = status.HTTP_201_CREATED
+        else:
+            response_status = status.HTTP_200_OK
+
+        return Response(serializer.data, status=response_status, headers=headers)
 
 
 class MobileMainView(TemplateView):
     template_name = 'main.html'
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data()
         device_id = self.request.GET.get("device_id")
 
         time = localtime()
 
-        step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("Y-m-d"))
+        if device_id:
+            step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("%Y-%m-%d"))
+        else:
+            step = None
 
         return {
             "device_id": device_id,
@@ -66,6 +74,17 @@ class AnimalView(TemplateView):
 
 class IndexView(TemplateView):
     template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        device_id = self.request.GET.get("device_id")
+
+        time = localtime()
+
+        step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("Y-m-d"))
+        context['step'] = step
+
+        return context
 
 
 def draw(request, device_id):

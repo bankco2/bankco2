@@ -9,6 +9,9 @@ class Animal(models.Model):
     image = models.FileField(null=True, blank=True)
     score = models.FloatField(default=1)    # 뽑기확률.. ?
 
+    def __str__(self):
+        return self.name
+
 
 class Device(models.Model):
     device_id = models.CharField(max_length=100, blank=False, null=False,
@@ -19,9 +22,15 @@ class Device(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
     animal = models.ManyToManyField(Animal)
 
+    def __str__(self):
+        return self.device_id
+
 
 class Step(models.Model):
     device = models.ForeignKey(Device, null=True, blank=True,
                                on_delete=models.CASCADE)
     count = models.IntegerField()
     step_date = models.DateField()
+
+    def __str__(self):
+        return "%s/%s" % (self.device.device_id, self.step_date)
