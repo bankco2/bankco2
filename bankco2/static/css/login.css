@@ -1,0 +1,71 @@
+@keyframes slideimg {
+  0% {
+    margin-left: -10px;
+  }
+
+  50% {
+    margin-left: -300px;
+  }
+
+  100% {
+    margin-left: -10px;
+  }
+}
+
+.login__wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.bg__img {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -99;
+}
+
+.bg__img img {
+  height: 100%;
+  animation-duration: 30s;
+  animation-name: slideimg;
+  animation-iteration-count: infinite;
+}
+
+.bg__img .dk__filter {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.login___title {
+  margin-top: 130px;
+  text-align: center;
+}
+
+.login___title img{
+  width: 50%;
+}
+
+.kakao__login__btn__cover {
+  width: 250px;
+  height: 50px;
+  margin: 0 auto;
+  margin-top: 350px;
+}
+
+.kakao__login__btn {
+  border-radius: 45px;
+  outline: none;
+  border: 1px solid #fff;
+  width: 100%;
+  height: 100%;
+  background: none;
+  color: #fff;
+  font-size: 0.8rem;
+}
