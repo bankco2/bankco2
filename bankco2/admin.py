@@ -5,7 +5,7 @@ from bankco2.models import Step, Device, Animal
 
 @admin.register(Step)
 class StepAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('device', 'step_date', 'count')
 
 
 @admin.register(Device)
