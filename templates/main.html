@@ -42,7 +42,17 @@
 </div>
 <script>
     var step = {{ step.count }};
+    var missions = ['오늘 하루는 핸드타올 대신 손수건을 사용해 볼까요?',
+        '오늘은 머그컵을 꼭 들고가서 일회용 컵 사용을 줄여봐요',
+        '조금만 더 걸어볼까요?',
+        '졸릴 때는 요가를 해봐요!',
+        '차를 몰고 가는 것보단 지하철을 타봐요!'];
+
     $(document).ready(function () {
+	window.setTimeout(function () {
+            $('div.quest__description').text(missions[Math.floor(Math.random() * missions.length)]);
+        }, 5000);
+
         $('#knob').jqxKnob({
             width: 270,
             height: 270,
