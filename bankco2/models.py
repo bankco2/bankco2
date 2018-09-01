@@ -30,7 +30,9 @@ class Step(models.Model):
     device = models.ForeignKey(Device, null=True, blank=True,
                                on_delete=models.CASCADE)
     count = models.IntegerField()
+
     step_date = models.DateField()
+    draw_flag = models.BooleanField(default=False)
 
     def __str__(self):
         return "%s/%s" % (self.device.device_id, self.step_date)
