@@ -4,8 +4,8 @@ from django.db import models
 
 class Animal(models.Model):
     code = models.CharField(max_length=16)
-    name = models.CharField(max_length=100, blank=False, null=False)
-    description = models.CharField(max_length=100, blank=False, null=False)
+    name = models.CharField(max_length=100, blank=True, null=True)
+    description = models.CharField(max_length=100, blank=True, null=True)
     image = models.FileField(null=True, blank=True)
     score = models.FloatField(default=1)    # 뽑기확률.. ?
 
