@@ -12,3 +12,8 @@ class Step(models.Model):
     character_code = models.CharField(max_length=32, default='code')
     count = models.IntegerField()
     step_date = models.DateField()
+
+
+class Animal(models.Model):
+    animal_code = models.CharField(max_length=16)
+    user = models.ManyToManyField(BankCo2User)
