@@ -9,20 +9,22 @@ class Animal(models.Model):
 
 
 class Device(models.Model):
-    device_id = models.CharField(max_length=100, blank=False, null=False)
+    device_id = models.CharField(max_length=100, blank=False, null=False,
+                                 default='dU2ZHFwz_xo')
 
-    created_at = models.DateTimeField(auto_now_add=True, null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True, null=False,
+                                      blank=False)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
 
 class CustomUser(User):
-    device = models.ForeignKey(Device, null=True, blank=True, on_delete=models.SET_NULL)
+    device = models.ForeignKey(Device, null=True, blank=True,
+                               on_delete=models.SET_NULL)
     animal = models.ManyToManyField(Animal)
 
 
 class Step(models.Model):
-    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    device = models.ForeignKey(Device, null=True, blank=True,
+                               on_delete=models.CASCADE)
     count = models.IntegerField()
     step_date = models.DateField()
-
-
