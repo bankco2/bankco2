@@ -150,6 +150,16 @@ class AnimalView(ListView):
     template_name = 'animal.html'
     queryset = Animal.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        device_id = self.request.GET.get("device_id")
+
+        context.update({
+            "device_id": device_id,
+        })
+
+        return context
+
 
 class IndexView(TemplateView):
     template_name = 'index.html'
