@@ -170,3 +170,5 @@ typings/
 .idea/
 .bashrc
 
+/static
+/media
