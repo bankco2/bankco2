@@ -24,7 +24,7 @@
     </div>
     <div class="app__content">
       <div class="step__count__cover">
-        <span id="step__count">9647</span>걸음
+        <span id="step__count">{{ step.count }}</span>걸음
       </div>
       <div class="step__img__cover" id="knob">
       </div>
@@ -39,12 +39,13 @@
     </div>
   </div>
   <script>
+    var step = {{ step.count }};
     $(document).ready(function () {
       $('#knob').jqxKnob({
         width: 270,
         height: 270,
         disabled: true,
-        value: 5000,
+        value: step,
         min: 0,
         max: 10000,
         startAngle: 270,
@@ -61,7 +62,7 @@
           endAngle: 360
         },
         progressBar: {
-          style: { fill: { color: '#F54228', gradientType: 'linear', gradientStops: [[0, 0.5], [50, 1]] } },
+          style: { fill: { color: '#FEDF20', gradientType: 'linear', gradientStops: [[0, 1.5],[100, 1]]}},
           background: {
             fill: '#89BAF4'
           },
@@ -70,6 +71,8 @@
         }
       });
     });
+
+    
   </script>
 </body>
 
