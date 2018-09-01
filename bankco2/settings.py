@@ -132,6 +132,6 @@ ACCOUNT_AUTHENTICATED_LOGOUT_REDIRECTS = True
 ACCOUNT_LOGOUT_REDIRECT_URL = "/api"
 
 try:
-    from .settings_local import *
+    from .local_settings import *
 except ImportError:
     pass
