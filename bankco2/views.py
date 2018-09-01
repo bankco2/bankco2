@@ -30,5 +30,13 @@ class StepViewSet(viewsets.ModelViewSet):
                         headers=headers)
 
 
+class MobileMainView(TemplateView):
+    template_name = 'main.html'
+
+
+class AnimalView(TemplateView):
+    template_name = 'animal.html'
+
+
 class IndexView(TemplateView):
-    template_name = 'login.html'
+    template_name = 'index.html'
