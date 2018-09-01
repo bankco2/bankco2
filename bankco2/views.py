@@ -6,8 +6,6 @@ from rest_framework.response import Response
 from bankco2.models import Step
 from bankco2.serializers import StepSerializer
 
-from django.shortcuts import render
-
 
 class StepViewSet(viewsets.ModelViewSet):
     queryset = Step.objects.all()
@@ -18,7 +16,7 @@ class StepViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
 
         Step.objects.update_or_create(
-            device_id=serializer.data.get('device_id'),
+            device_id=serializer.data.get('device'),
             defaults={
                 'count': serializer.data.get('count'),
                 'step_date': serializer.data.get('step_date')
