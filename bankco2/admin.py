@@ -1,6 +1,19 @@
 from django.contrib import admin
 
-from bankco2.models import Step, Device
+from bankco2.models import Step, Device, Animal
 
-admin.site.register(Step)
-admin.site.register(Device)
+
+@admin.register(Step)
+class StepAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Device)
+class DeviceAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Animal)
+class AnimalAdmin(admin.ModelAdmin):
+    pass
+
