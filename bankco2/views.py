@@ -41,7 +41,10 @@ class MobileMainView(TemplateView):
 
         time = localtime()
 
-        step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("Y-m-d"))
+        if device_id:
+            step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("%Y-%m-%d"))
+        else:
+            step = None
 
         return {
             "device_id": device_id,
