@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/all.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <script src="{% static 'js/jqx-all.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
     <title>Document</title>
 </head>
 
@@ -28,8 +28,14 @@
         <div class="step__count__cover">
             <span id="step__count">{{ step.count }}</span>걸음
         </div>
-        <div class="step__img__cover" id="knob">
+        <div class="step__img__cover" style="position:relative;">
+
+            <canvas id="openedCanvas" width="270" height="270"></canvas>
+            <div style="position:absolute; left: 0; top: 0;">
+                <img id="center_image" width="270" height="270">
+            </div>
         </div>
+
     </div>
     <div class="app__bottom">
         <div class="quest__cover">
@@ -42,52 +48,81 @@
 </div>
 <script>
     var step = {{ step.count }};
+
     var missions = ['오늘 하루는 핸드타올 대신 손수건을 사용해 볼까요?',
         '오늘은 머그컵을 꼭 들고가서 일회용 컵 사용을 줄여봐요',
         '조금만 더 걸어볼까요?',
         '졸릴 때는 요가를 해봐요!',
         '차를 몰고 가는 것보단 지하철을 타봐요!'];
 
+    var chart;
+
     $(document).ready(function () {
 	window.setTimeout(function () {
             $('div.quest__description').text(missions[Math.floor(Math.random() * missions.length)]);
         }, 5000);
 
-        $('#knob').jqxKnob({
-            width: 270,
-            height: 270,
-            disabled: true,
-            value: step,
-            min: 0,
-            max: 10000,
-            startAngle: 270,
-            endAngle: 630,
-            rotation: 'clockwise',
-            style: {
-                fill: "none"
+        chart = new Chart($('#openedCanvas'), {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    "Steps"
+                ],
+                datasets: [
+                    {
+                        data: [0, 100],
+                        backgroundColor: [
+                            "rgba(0,0,0,0)",
+                            "#8abef7"
+                        ],
+                        hoverBackgroundColor: [
+                            "rgba(0,0,0,0)",
+                            "#8abef7"
+                        ],
+                        borderWidth: [
+                            0, 0
+                        ]
+                    }]
             },
-            dial: {
-                style: {
-                    fill: "none"
+            options: {
+                cutoutPercentage: 93,
+                animation: {
+                    duration: 0
                 },
-                startAngle: 0,
-                endAngle: 360
-            },
-            progressBar: {
-                style: {fill: {color: '#FEDF20', gradientType: 'linear', gradientStops: [[0, 1.5], [100, 1]]}},
-                background: {
-                    fill: '#89BAF4'
+                legend: {
+                    display: false
                 },
-                size: '8%',
-                offset: '92%'
+                tooltips: {
+                    enabled: false
+                }
             }
         });
+
+        updateStepCount(step);
     });
 
 
     function updateStepCount(step) {
+        // 여기에 이미지를 바꾸는걸 넣어주세요
+        var url = "{% static 'img/trash_1.png' %}";
+
+        if( step < 5000 ) {
+            url = "{% static 'img/trash_2.png' %}";
+        } else if (step < 7500) {
+            url = "{% static 'img/trash_3.png' %}";
+        } else if (step < 10000) {
+            url = "{% static 'img/trash_4.png' %}";
+        } else {
+            url = "{% static 'img/clean.png' %}";
+
+        }
+
+        chart.data.datasets[0].data[0] = step < 10000 ? ( step / 100 ) : 100;;
+        chart.data.datasets[0].data[1] = 100 - chart.data.datasets[0].data[0];
+        chart.update();
+
+        $("#center_image").attr("src", url);
         $("#step__count").text(step);
-        $('#knob').jqxKnob({value: step});
     }
 
 

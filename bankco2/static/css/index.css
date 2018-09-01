@@ -45,7 +45,11 @@
   width: 270px;
   height: 270px;
   border-radius: 100%;
-  background: linear-gradient(45deg, #0D56E6, #136AE6);
+  background: url("/static/img/bg_gauge.png");
+  background-repeat: no-repeat;
+  background-size: 268px 268px;
+  background-position-x: 1px;
+  background-position-y: 1px;
 }
 
 .quest__cover{
