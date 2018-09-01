@@ -1,4 +1,5 @@
 import json
+from datetime import timedelta
 
 from django.http import HttpResponse
 from django.utils.timezone import localtime
@@ -61,10 +62,87 @@ class MobileMainView(TemplateView):
         else:
             step = None
 
-        return {
+        context.update({
             "device_id": device_id,
             "step": step
-        }
+        })
+
+        return context
+
+
+class RankView(TemplateView):
+    template_name = 'rank.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        device_id = self.request.GET.get("device_id")
+
+        time = localtime()
+
+        steps = Step.objects.filter(step_date=time.strftime("%Y-%m-%d")).order_by('-count')[:10]
+
+        ranking = []
+        rank = 1
+        in_rank_flag = False
+
+        for step in steps:
+            if step.device.device_id == device_id:
+                in_rank_flag = True
+
+            ranking.append({
+                "rank": rank,
+                "device_id": step.device.device_id,
+                "count": step.count,
+            })
+
+            rank = rank + 1
+
+        if not in_rank_flag:
+            step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("%Y-%m-%d")).first()
+
+            ranking.append({
+                "rank": "-",
+                "device_id": step.device.device_id,
+                "count": step.count,
+            })
+
+
+        context.update({
+            "device_id": device_id,
+            "ranking": ranking
+        })
+
+        return context
+
+
+class HistoryView(TemplateView):
+    template_name = 'history.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        device_id = self.request.GET.get("device_id")
+
+        steps = []
+
+        for i in range(-6, 1):
+            time = localtime() + timedelta(days=i)
+
+            step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("%Y-%m-%d")).first()
+
+            if step:
+                steps.append(step)
+            else:
+                steps.append({
+                    "step_date": time,
+                    "count": 0
+                })
+
+        context.update({
+            "device_id": device_id,
+            "steps": steps
+        })
+
+        return context
 
 
 class AnimalView(ListView):
@@ -82,7 +160,9 @@ class IndexView(TemplateView):
         time = localtime()
 
         step = Step.objects.filter(device__device_id=device_id, step_date=time.strftime("%Y-%m-%d"))
-        context['step'] = step
+        context.update({
+            'step': step
+        })
 
         return context
 

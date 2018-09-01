@@ -17,12 +17,31 @@
 <body>
 <div class="main__wrapper">
     <div class="app__header">
+        <a href="/main/?device_id={{ device_id }}">
+            <div id="animal__logo">
+                <img src="{% static 'img/ic_home.png' %}" alt="">
+                <div id="animal__description">처음</div>
+            </div>
+        </a>
         <a href="/animal/?device_id={{ device_id }}">
             <div id="animal__logo">
                 <img src="{% static 'img/animal_logo.png' %}" alt="">
 	            <div id="animal__description" onclick="location.href='{% url "animal" %}'">동물도감</div>
             </div>
         </a>
+        <a href="/history/?device_id={{ device_id }}">
+            <div id="animal__logo">
+                <img src="{% static 'img/ic_history.png' %}" alt="">
+                <div id="animal__description">7 DAYS</div>
+            </div>
+        </a>
+        <a href="/rank/?device_id={{ device_id }}">
+            <div id="animal__logo">
+                <img src="{% static 'img/ic_rank.png' %}" alt="">
+                <div id="animal__description">랭킹</div>
+            </div>
+        </a>
+
     </div>
     <div class="app__content">
         <div class="step__count__cover">

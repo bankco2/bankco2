@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static humanize %}
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+    <title>Ranking</title>
+
+    <style>
+        body {
+            color: white;
+        }
+
+        .table {
+            width: 100%;
+        }
+        .table td {
+            padding: 10px;
+        }
+        .table td.rank {
+            width: 80px;
+            text-align: center;
+        }
+        .table td.step {
+            width: 80px;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+<div class="main__wrapper">
+    <div>
+        순위
+    </div>
+    <table class="table">
+        {% for rank in ranking %}
+            <tr>
+            <td class="rank">{{ rank.rank }}</td>
+            <td class="steps">{{ rank.count|intcomma }}</td>
+            <td class="memo">{% if device_id == rank.device_id %}
+                접니다
+            {% endif %}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</div>
+</body>
+</html>

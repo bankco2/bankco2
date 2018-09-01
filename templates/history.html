@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% load static humanize %}
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+    <title>History</title>
+
+    <style>
+        body {
+            color: white;
+        }
+
+        img {
+            text-align: center;
+            margin: 0 auto;
+            display: inline-block;
+        }
+
+        #history {
+            padding: 8px;
+        }
+
+        #history li {
+            padding: 8px 16px;
+            float: left;
+            width: 160px;
+            border-bottom: #fff 1px solid;
+        }
+        #history li .img {
+            margin: 10px;
+            width: 140px;
+            height: 140px;
+            background: #fff;
+            border-radius: 50%;
+        }
+        #history li img {
+            margin: 5px;
+            height: 130px;
+        }
+        #history li span {
+            padding: 10px 0;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div class="main__wrapper">
+    <div style="width: 100%; text-align: center">
+        <img src="{% static "img/7days_title.png" %}" align="center"/>
+    </div>
+    <ul id="history">
+        {% for step in steps %}
+            <li>
+                <span class="rank">{{ step.step_date|date:"m/d" }}</span>
+
+                <div class="img">
+
+                {% if step.count >= 10000 %}
+                <img src="{% static "img/7days_title.png" %}">
+                {% elif step.count > 7500 %}
+                <img src="{% static "img/trash_4.png" %}">
+                {% elif step.count > 5000 %}
+                <img src="{% static "img/trash_3.png" %}">
+                {% elif step.count > 2500 %}
+                <img src="{% static "img/trash_2.png" %}">
+                {% else %}
+                <img src="{% static "img/trash_1.png" %}">
+                {% endif %}
+                </div>
+
+                <span class="steps">{{ step.count|intcomma }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+
+<div></div>
+
+</div>
+</body>
+</html>

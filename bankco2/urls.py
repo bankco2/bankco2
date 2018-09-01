@@ -31,6 +31,8 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('animal/', views.AnimalView.as_view(), name='animal'),
     path('drawing/<str:device_id>/', views.draw, name='drawing'),
+    path('history/', views.HistoryView.as_view(), name='history'),
+    path('rank/', views.RankView.as_view(), name='rank'),
     path('main/', views.MobileMainView.as_view(), name='main'),
     path('', views.IndexView.as_view(), name='index')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
