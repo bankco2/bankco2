@@ -9,5 +9,6 @@ class BankCo2User(User):
 
 class Step(models.Model):
     user = models.ForeignKey(BankCo2User, on_delete=models.CASCADE)
+    character_code = models.CharField(max_length=32, default='code')
     count = models.IntegerField()
     step_date = models.DateField()
