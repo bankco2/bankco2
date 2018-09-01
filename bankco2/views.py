@@ -51,6 +51,15 @@ class MobileMainView(TemplateView):
 class AnimalView(TemplateView):
     template_name = 'animal.html'
 
+    def get_context_data(self, **kwargs):
+        device_id = self.request.GET.get("device_id")
+
+        animals = Device.objects.filter(device=device_id)
+
+        return {
+            "animals": animals
+        }
+
 
 class IndexView(TemplateView):
     template_name = 'index.html'
